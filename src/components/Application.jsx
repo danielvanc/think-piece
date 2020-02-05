@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
-import { firestore } from '../firebase'; 
+import { firestore, auth } from '../firebase'; 
 import Posts from './Posts';
 import { collectIdsAndDocs } from '../utilities';
-
+import Authentication from './Authentication'
 class Application extends Component {
   state = {
     posts: [],
+    user: null,
   };
 
-  unsubscribe = null;
-
+  unsubscribeFromFirestore = null;
+  unsubscribeFromAuth = null
   componentDidMount = async () => {
     // const snapshot = await firestore.collection('posts').get();
     // const posts = snapshot.docs.map(collectIdsAndDocs);
     // this.setState({ posts })
 
     //give me a function to call everytime the data changes
-    this.unsubscribe = firestore.collection('posts').onSnapshot(snapshot => {
+    this.unsubscribeFromFirestore = firestore.collection('posts').onSnapshot(snapshot => {
       const posts = snapshot.docs.map(collectIdsAndDocs);
       this.setState({ posts });
+    })
+
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+      console.log(user);
+      this.setState({ user });
     })
   }
 
   componentWillUnmount = () => {
-    this.unsubscribe();
+    this.unsubscribeFromFirestore();
   }
 
   // handleCreate = async post => {
@@ -51,12 +57,13 @@ class Application extends Component {
   // }
 
   render() {
-    const { posts } = this.state;
+    const { posts, user } = this.state;
 
     return (
       <main className="Application">
         <h1>Think Piece</h1>
         {/* <Posts posts={posts} onCreate={this.handleCreate} onRemove={this.handleRemove} /> */}
+        <Authentication user={user} />
         <Posts posts={posts} />
       </main>
     );
