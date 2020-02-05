@@ -1,0 +1,1 @@
+export const collectIdsAndDocs = doc => { return { col_id: doc.id, ...doc.data() } }
