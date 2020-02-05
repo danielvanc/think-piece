@@ -1,8 +1,13 @@
 import React from 'react';
-
+import { firestore } from '../firebase';
 import moment from 'moment';
 
+
 const Post = ({ col_id, title, content, User, createdAt, stars, comments, onRemove }) => {
+
+  const postRef = firestore.collection("posts").doc(`${col_id}`)
+  const remove = () => postRef.delete();
+
   return (
     <article className="Post">
       <div className="Post--content">
@@ -28,7 +33,8 @@ const Post = ({ col_id, title, content, User, createdAt, stars, comments, onRemo
         </div>
         <div>
           <button className="star">Star</button>
-          <button className="delete" onClick={() => onRemove(col_id)}>Delete</button>
+          {/* <button className="delete" onClick={() => onRemove(col_id)}>Delete</button> */}
+          <button className="delete" onClick={remove}>Delete</button>
         </div>
       </div>
     </article>

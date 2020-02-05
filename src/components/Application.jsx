@@ -26,23 +26,29 @@ class Application extends Component {
     this.unsubscribe();
   }
 
-  handleCreate = async post => {
-    const { posts } = this.state;
+  // handleCreate = async post => {
+    // const { posts } = this.state;
 
-    const docRef = await firestore.collection('posts').add(post);
-    const doc = await docRef.get();
+    // const docRef = await firestore.collection('posts').add(post);
+    // const doc = await docRef.get();
+    // const newPost = collectIdsAndDocs(doc);
+    // this.setState({ posts: [newPost, ...posts] });
 
-    const newPost = collectIdsAndDocs(doc);
+    // Firestore will handle updating thus not needing state
+    // The datastore will tell the app that everything has changed
+    // firestore.collection('posts').add(post);
 
-    this.setState({ posts: [newPost, ...posts] });
-  };
+  // };
 
-  handleRemove = async col_id => {
-    const allPosts = this.state.posts;
-    await firestore.collection("posts").doc(`${col_id}`).delete();
-    const posts = allPosts.filter(post => post.col_id !== col_id);
-    this.setState({ posts });
-  }
+  // handleRemove = async col_id => {
+    // const allPosts = this.state.posts;
+    // await firestore.collection("posts").doc(`${col_id}`).delete();
+    // const posts = allPosts.filter(post => post.col_id !== col_id);
+    // this.setState({ posts });
+
+    // The datastore will tell the app that everything has changed
+    // firestore.collection("posts").doc(`${col_id}`).delete();
+  // }
 
   render() {
     const { posts } = this.state;
@@ -50,7 +56,8 @@ class Application extends Component {
     return (
       <main className="Application">
         <h1>Think Piece</h1>
-        <Posts posts={posts} onCreate={this.handleCreate} onRemove={this.handleRemove} />
+        {/* <Posts posts={posts} onCreate={this.handleCreate} onRemove={this.handleRemove} /> */}
+        <Posts posts={posts} />
       </main>
     );
   }
