@@ -8,6 +8,8 @@ const Post = ({ col_id, title, content, User, createdAt, stars, comments, onRemo
   const postRef = firestore.collection("posts").doc(`${col_id}`)
   const remove = () => postRef.delete();
 
+  const handleStar = (e) => postRef.update({ stars: stars +1 })
+
   return (
     <article className="Post">
       <div className="Post--content">
@@ -29,10 +31,10 @@ const Post = ({ col_id, title, content, User, createdAt, stars, comments, onRemo
             {comments}
           </p>
           <p>Posted by {User.displayName}</p>
-          <p>{moment(createdAt).calendar()}</p>
+          <p>{moment(createdAt.toDate()).calendar()}</p>
         </div>
         <div>
-          <button className="star">Star</button>
+          <button className="star" onClick={handleStar}>Star</button>
           {/* <button className="delete" onClick={() => onRemove(col_id)}>Delete</button> */}
           <button className="delete" onClick={remove}>Delete</button>
         </div>
