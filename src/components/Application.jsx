@@ -8,15 +8,22 @@ class Application extends Component {
     posts: [],
   };
 
+  unsubscribe = null;
+
   componentDidMount = async () => {
-    const snapshot = await firestore.collection('posts').get();
-    // snapshot.forEach(doc => {
-    //   const id = doc.id;
-    //   const data = doc.data();
-    //   console.log({ id, data });
-    // })
-    const posts = snapshot.docs.map(collectIdsAndDocs);
-    this.setState({ posts })
+    // const snapshot = await firestore.collection('posts').get();
+    // const posts = snapshot.docs.map(collectIdsAndDocs);
+    // this.setState({ posts })
+
+    //give me a function to call everytime the data changes
+    this.unsubscribe = firestore.collection('posts').onSnapshot(snapshot => {
+      const posts = snapshot.docs.map(collectIdsAndDocs);
+      this.setState({ posts });
+    })
+  }
+
+  componentWillUnmount = () => {
+    this.unsubscribe();
   }
 
   handleCreate = async post => {
