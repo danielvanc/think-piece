@@ -9,7 +9,7 @@ class Application extends Component {
     user: null,
   };
 
-  unsubscribeFromFirestore = null;
+  // unsubscribeFromFirestore = null;
   unsubscribeFromAuth = null
   componentDidMount = async () => {
     // const snapshot = await firestore.collection('posts').get();
@@ -17,10 +17,10 @@ class Application extends Component {
     // this.setState({ posts })
 
     //give me a function to call everytime the data changes
-    this.unsubscribeFromFirestore = firestore.collection('posts').onSnapshot(snapshot => {
-      const posts = snapshot.docs.map(collectIdsAndDocs);
-      this.setState({ posts });
-    })
+    // this.unsubscribeFromFirestore = firestore.collection('posts').onSnapshot(snapshot => {
+    //   const posts = snapshot.docs.map(collectIdsAndDocs);
+    //   this.setState({ posts });
+    // })
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       const user = await createUserProfileDocument(userAuth);
@@ -29,9 +29,9 @@ class Application extends Component {
     })
   }
 
-  componentWillUnmount = () => {
-    this.unsubscribeFromFirestore();
-  }
+  // componentWillUnmount = () => {
+  //   this.unsubscribeFromFirestore();
+  // }
 
   // handleCreate = async post => {
     // const { posts } = this.state;
