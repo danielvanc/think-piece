@@ -5,12 +5,13 @@ import { collectIdsAndDocs } from '../utilities';
 import Authentication from './Authentication'
 class Application extends Component {
   state = {
-    posts: [],
+    // posts: [],
     user: null,
   };
 
   // unsubscribeFromFirestore = null;
   unsubscribeFromAuth = null
+  
   componentDidMount = async () => {
     // const snapshot = await firestore.collection('posts').get();
     // const posts = snapshot.docs.map(collectIdsAndDocs);
@@ -65,7 +66,8 @@ class Application extends Component {
         <h1>Think Piece</h1>
         {/* <Posts posts={posts} onCreate={this.handleCreate} onRemove={this.handleRemove} /> */}
         <Authentication user={user} />
-        <Posts posts={posts} />
+        {/* <Posts posts={posts} /> */}
+        <Posts />
       </main>
     );
   }
