@@ -41,7 +41,6 @@ const Post = ({ col_id, title, content, user, createdAt, stars, comments, onRemo
         <div>
           <button className="star" onClick={handleStar}>Star</button>
           {/* <button className="delete" onClick={() => onRemove(col_id)}>Delete</button> */}
-          {console.log(user)}
           {belongsToCurrentUser(currentUser, user) && <button className="delete" onClick={remove}>Delete</button>}
         </div>
       </div>

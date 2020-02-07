@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Posts from './Posts';
 // import { collectIdsAndDocs } from '../utilities';
 import Authentication from './Authentication';
-
+import { Switch, Route, Link } from 'react-router-dom';
+import UserProfile from './UserProfile';
 
 class Application extends Component {
   // state = {
@@ -63,11 +64,19 @@ class Application extends Component {
     // const { posts, user } = this.state;
     return (
       <main className="Application">
-        <h1>Think Piece</h1>
+        <h1>
+          <Link to="/">
+            Think Piece
+          </Link>
+        </h1>
         {/* <Posts posts={posts} onCreate={this.handleCreate} onRemove={this.handleRemove} /> */}
-          <Authentication />
+        <Authentication />
+        <Switch>
+          <Route exact path="/" component={Posts} />
+          <Route exact path="/profile" component={UserProfile} />
+        </Switch>
         {/* <Posts posts={posts} /> */}
-        <Posts />
+        {/* <Posts /> */}
       </main>
     );
   }
