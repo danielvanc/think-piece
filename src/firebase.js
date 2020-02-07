@@ -42,11 +42,12 @@ export const createUserProfileDocument = async (user, additionalData) => {
 
   return getUserDocument(user.uid);
 }
-export const getUserDocument = async (uid) => {
+export const getUserDocument = (uid) => {
   if (!uid) return null;
   try {
-    const userDocument = await firestore.collection('users').doc(uid).get();
-    return { uid, ...userDocument.data() };
+    return firestore.collection('users').doc(uid);
+    // const userDocument = await firestore.collection('users').doc(uid).get();
+    // return { uid, ...userDocument.data() };
   } catch (error) {
     console.error('Error fetching user', error.message);
   }

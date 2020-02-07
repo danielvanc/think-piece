@@ -39,7 +39,7 @@ class UserProfile extends Component {
             placeholder="Display Name"
           />
           <input type="file" ref={ref => this.imageInput = ref} />
-          <input className="update" type="submit" />
+          <input className="update" type="submit" value="Submit" />
         </form>
       </section>
     )
