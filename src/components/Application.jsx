@@ -5,6 +5,7 @@ import Posts from './Posts';
 import Authentication from './Authentication';
 import { Switch, Route, Link } from 'react-router-dom';
 import UserProfile from './UserProfile';
+import PostPage from './PostPage';
 
 class Application extends Component {
   // state = {
@@ -74,6 +75,7 @@ class Application extends Component {
         <Switch>
           <Route exact path="/" component={Posts} />
           <Route exact path="/profile" component={UserProfile} />
+          <Route path="/posts/:id" component={PostPage} />
         </Switch>
         {/* <Posts posts={posts} /> */}
         {/* <Posts /> */}
